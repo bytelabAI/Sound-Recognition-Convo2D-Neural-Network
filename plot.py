@@ -75,7 +75,7 @@ class Plot:
 
         #Extract Raw Audio from Wav File
         opened_signal = spf.readframes(-1)
-        opened_signal = np.fromstring(opened_signal, 'Int16')
+        opened_signal = np.fromstring(opened_signal, dtype = np.int16)
 
         #opened_signal = np.array_split(opened_signal, Plot.sub_arrays)
 
@@ -84,7 +84,7 @@ class Plot:
 
         #If Stereo
         if spf.getnchannels() == 2:
-            print 'Just mono files'
+            print ('Just mono files')
             sys.exit(0)
 
         if(radioIntVar.get() == 1):   # is 2D plot

@@ -1,6 +1,6 @@
 from gui import Gui
-from Tkinter import *
-import tkMessageBox
+from tkinter import *
+import tkinter.messagebox
 import os
 
 root = Tk()

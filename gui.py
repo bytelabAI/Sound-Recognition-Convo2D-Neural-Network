@@ -1,9 +1,9 @@
-import tkFileDialog
+import tkinter.filedialog
 import threading
 import winsound, sys
 import spectogram
 
-from Tkinter import *
+from tkinter import *
 from recorder import Recorder
 from plot import  Plot
 from neural_network import NeuralNetwork
@@ -66,7 +66,7 @@ class Gui:
         sys.stdout.write("Searching for file...")
         options = {}
         options['filetypes'] = [('WAV audio files', '.wav')]
-        self.full_file_path = tkFileDialog.askopenfilename(**options)
+        self.full_file_path = tkinter.filedialog.askopenfilename(**options)
         splitted_path = self.full_file_path.split('/')
         file_name = splitted_path[len(splitted_path)-1]
         self.selected_file_name = file_name         #global var, selected file_name
@@ -76,7 +76,7 @@ class Gui:
         self.b_waveform['state'] = 'active'
         self.b_spectrogram['state'] = 'active'
 
-        print "\n[Selected file name:] " + file_name
+        print ("\n[Selected file name:] " + file_name)
 
     def create_menu_bar(self, root):
         self.file_menu.add_command(label = "Open audio file", command = self.open_audio_file)
@@ -155,11 +155,11 @@ class Gui:
         self.disp = Display(self.frame_record)
         self.disp.pack()
 
-        print "==================INSTRUCTIONS==================="
-        print "1. Load Convolution2D Neural Network weights model..."
-        print "2. Hit *Record* button and wait 1 sec after Beep signal, then start whistling..."
-        print "3. Hit *Recognize* button and check the results..."
-        print "================================================\n"
+        print ("==================INSTRUCTIONS===================")
+        print ("1. Load Convolution2D Neural Network weights model...")
+        print ("2. Hit *Record* button and wait 1 sec after Beep signal, then start whistling...")
+        print ("3. Hit *Recognize* button and check the results...")
+        print ("================================================\n")
 
     def create_result(self, root):
         frame_result = Frame(root)
@@ -196,7 +196,7 @@ class Gui:
             self.l_timer_var.set('00:00')
             return
 
-        print "tick..." + str(self.counter)
+        print ("tick..." + str(self.counter))
 
     def main_button_click(self):
         self.play_beep()

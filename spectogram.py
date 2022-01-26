@@ -21,10 +21,18 @@ def stft(sig, frameSize, overlapFac=0.5, window=np.hanning):
     hopSize = int(frameSize - np.floor(overlapFac * frameSize))
 
     # zeros at beginning (thus center of 1st window should be for sample nr. 0)
-    samples = np.append(np.zeros(np.floor(frameSize/2.0)), sig)
+    floor = np.floor(frameSize/2)
+    floor = int(floor)
+    print(floor)
+    zeros = np.zeros(floor)
+    print(zeros)
+    samples = np.append(zeros, sig)
+    print(samples)
     # cols for windowing
+    frameSize = int(frameSize)
     cols = np.ceil( (len(samples) - frameSize) / float(hopSize)) + 1
     # zeros at end (thus samples can be fully covered by frames)
+    
     samples = np.append(samples, np.zeros(frameSize))
 
     frames = stride_tricks.as_strided(samples, shape=(cols, frameSize), strides=(samples.strides[0]*hopSize, samples.strides[0])).copy()
@@ -122,7 +130,7 @@ def create_data_set_graphs():
     Funkcija koja ucitava sa standardnih direktorijuma data seta samples/ ASC,DESC,FLAT
     ucitane .wav datoteke pretvara u png grafike koji se nalaze u samples/graphs/ ASC,DESC,FLAT
     """
-    print "\nCreating graphs from Data-Set samples..."
+    print ("\nCreating graphs from Data-Set samples...")
 
     for asc_file in os.listdir("samples/ASC"):
         if asc_file.endswith(".wav"):
@@ -152,7 +160,7 @@ def create_data_set_graphs():
             img_data = prepare_fig_to_img(fig)      #za formiranje grafika u data-set-u ...
             cv2.imwrite("samples/SOY/graphs/" + soy_file, img_data)
 
-    print "Graphs successfully created! \n"
+    print ("Graphs successfully created! \n")
 
 
 

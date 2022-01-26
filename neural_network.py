@@ -11,7 +11,7 @@ import gui
 # keras
 from keras.models import Sequential
 from keras.layers.core import Dense,Activation
-from keras.optimizers import SGD
+from tensorflow.keras.optimizers import SGD
 from keras.datasets import mnist
 from keras.utils import np_utils
 from keras.models import model_from_json
@@ -39,7 +39,7 @@ class NeuralNetwork:
         # convolution kernel size
         nb_conv = 3
 
-        NeuralNetwork.ann.add(Convolution2D(nb_filters, nb_conv, nb_conv, border_mode='valid', input_shape=(1, img_rows, img_cols)))
+        NeuralNetwork.ann.add(Convolution2D(nb_filters, nb_conv, nb_conv, padding='valid', input_shape=(1, img_rows, img_cols)))
         NeuralNetwork.ann.add(Activation('sigmoid'))
         NeuralNetwork.ann.add(Convolution2D(nb_filters, nb_conv, nb_conv))
         NeuralNetwork.ann.add(Activation('sigmoid'))
@@ -107,16 +107,16 @@ class NeuralNetwork:
         result_probability = NeuralNetwork.ann.predict_proba(X_test, batch_size=1)
         result_probability *= 100   # convert to percent
 
-        print "[Winner]: " + NeuralNetwork.alphabet[results_test]
-        print "[Probabilities:] " + "ASC:" + str(result_probability[0, 0])+"%" + ", DESC:" + str(result_probability[0, 1])+"%" + \
-                ", FLAT:" + str(result_probability[0, 2])+"%" + ", SOY: " + str(result_probability[0, 3])+"%"
+        print ("[Winner]: " + NeuralNetwork.alphabet[results_test])
+        print ("[Probabilities:] " + "ASC:" + str(result_probability[0, 0])+"%" + ", DESC:" + str(result_probability[0, 1])+"%" + \
+                ", FLAT:" + str(result_probability[0, 2])+"%" + ", SOY: " + str(result_probability[0, 3])+"%")
 
     @staticmethod
     def load_model_weights():
-       print "Creating neural network..."
+       print ("Creating neural network...")
        NeuralNetwork.create_convo2D_ann()
-       print "Compiling neural network..."
+       print ("Compiling neural network...")
        NeuralNetwork.ann.compile(loss='categorical_crossentropy', optimizer='adadelta')
-       print "Loading neural network model weights..."
+       print ("Loading neural network model weights...")
        NeuralNetwork.ann.load_weights('my_convo2d_model_weights.h5')
-       print "Neural network successfully loaded!"
+       print ("Neural network successfully loaded!")

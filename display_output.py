@@ -3,7 +3,7 @@
 # Author: A.J. Gauld
 # Date: September 2001
 #
-from Tkinter import *
+from tkinter import *
 import sys
 import threading
 
